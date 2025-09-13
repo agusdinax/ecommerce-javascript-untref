@@ -30,8 +30,6 @@ npm run dev
     index.js
     product.js
     cart.js
-  /assets
-    logo1.png
   styles.css
 index.html
 product.html
@@ -72,7 +70,6 @@ export async function traerProductos() {
 
 - DOMContentLoaded: al inicializar cada página
 - click en botones como ver detalle
-- actualización visual:
 
 ### Promesas y compra simulada
 

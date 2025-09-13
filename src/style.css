@@ -265,12 +265,11 @@ body {
   opacity: .6;
   cursor: not-allowed;
   filter: grayscale(100%);
-  pointer-events: none; /* por si algún estilo externo re-habilita el hover */
+  pointer-events: none; 
 }
-
 .btn-primary:disabled,
 .btn-primary[disabled] {
-  background: #9aa3ab;   /* gris */
+  background: #9aa3ab;   
   border-color: #9aa3ab;
   color: #fff;
 }
