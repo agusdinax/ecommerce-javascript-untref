@@ -3,8 +3,8 @@ import { traerProducto, ajustarPrecio, sumarCarrito, actualizarNroCarrito } from
 const detailEl = document.getElementById('product-detail');
 const errorEl = document.getElementById('detail-error');
 
-function getIdFromQuery() {
-  const params = new URLSearchParams(location.search);
+function obtenerIdElemento() {
+  const params = new URLSearchParams(window.location.search);
   return params.get('id');
 }
 
@@ -22,10 +22,15 @@ function detalleTemplate(p) {
   `;
 }
 
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
 async function init() {
   actualizarNroCarrito();
-  const id = getIdFromQuery();
+  const id = obtenerIdElemento();
   if (!id) {
+    errorEl.textContent = 'Falta el parámetro id en la URL';
     errorEl.classList.remove('d-none');
     return;
   }
@@ -34,13 +39,28 @@ async function init() {
     const p = await traerProducto(id);
     detailEl.innerHTML = detalleTemplate(p);
     const btn = document.getElementById('add');
-    btn.addEventListener('click', () => {
-      sumarCarrito(p, 1);
-      btn.textContent = '¡Agregado!';
-      setTimeout(() => (btn.textContent = 'Agregar al carrito'), 1000);
+    const originalText = btn.textContent;
+    btn.addEventListener('click', async () => {
+      if (btn.disabled) return; 
+      try {
+        btn.disabled = true;
+        btn.setAttribute('aria-busy', 'true');
+        await Promise.resolve(sumarCarrito(p, 1));
+        actualizarNroCarrito();
+        btn.textContent = '¡Agregado!';
+        await sleep(1000);
+      } catch (err) {
+        console.error(err);
+        btn.textContent = 'Error';
+        await sleep(900);
+      } finally {
+        btn.disabled = false;
+        btn.removeAttribute('aria-busy');
+        btn.textContent = originalText;
+      }
     });
   } catch (err) {
-    errorEl.textContent = err.message || 'Error al cargar el producto';
+    errorEl.textContent = err?.message || 'Error al cargar el producto';
     errorEl.classList.remove('d-none');
   }
 }

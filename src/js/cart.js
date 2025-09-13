@@ -80,7 +80,7 @@ function eventosClick() {
       msgEl.textContent = '¡Compra realizada con éxito! Gracias por tu compra!';
       msgEl.className = 'alert'; 
     } catch (err) {
-      msgEl.textContent = err.message || 'Hubo un problema al procesar el pago.';
+      msgEl.textContent = msg(e.message || 'Error en el pago');
       msgEl.className = 'alert';
     } finally {
       buyBtn.disabled = false;
