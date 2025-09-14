@@ -65,7 +65,6 @@ function eventosClick() {
     buyBtn.disabled = true;
     msgEl.classList.add('d-none');
     msgEl.textContent = '';
-
     //simulación de un pago con una promesa
     const fakeCheckout = () => new Promise((resolve, reject) => {
       setTimeout(() => {
