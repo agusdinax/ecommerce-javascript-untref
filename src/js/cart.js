@@ -13,9 +13,9 @@ function listadoCarrito(item) {
         <div class="name">${item.title}</div>
         <div class="price">${ajustarPrecio(item.price)}</div>
         <div class="qty">
-          <button class="dec" aria-label="Restar">−</button>
+          <button class="dec">−</button>
           <span class="q">${item.qty}</span>
-          <button class="inc" aria-label="Sumar">+</button>
+          <button class="inc">+</button>
         </div>
       </div>
       <button class="remove" title="Eliminar">✕</button>
@@ -26,7 +26,7 @@ function listadoCarrito(item) {
 function rendirizarCarrito() {
   const cart = obtenerCarrito();
   if (!cart.length) {
-    itemsEl.innerHTML = `<p>Tu carrito está vacío.</p>`;
+    itemsEl.innerHTML = `<p>El carrito está vacio</p>`;
     totalEl.textContent = ajustarPrecio(0);
     actualizarNroCarrito(0);
     return;
@@ -76,7 +76,7 @@ function eventosClick() {
       await fakeCheckout();
       limpiarCarrito();
       rendirizarCarrito();
-      msgEl.textContent = '¡Compra realizada con éxito! Gracias por tu compra!';
+      msgEl.textContent = 'Compra realizada con éxito! Gracias por tu compra!';
       msgEl.className = 'alert'; 
     } catch (err) {
       msgEl.textContent = msg(e.message || 'Error en el pago');

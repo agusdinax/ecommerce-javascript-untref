@@ -30,7 +30,6 @@ async function init() {
   actualizarNroCarrito();
   const id = obtenerIdElemento();
   if (!id) {
-    errorEl.textContent = 'Falta el parámetro id en la URL';
     errorEl.classList.remove('d-none');
     return;
   }
@@ -47,7 +46,7 @@ async function init() {
         btn.setAttribute('aria-busy', 'true');
         await Promise.resolve(sumarCarrito(p, 1));
         actualizarNroCarrito();
-        btn.textContent = '¡Agregado!';
+        btn.textContent = 'Agregado!';
         await sleep(1000);
       } catch (err) {
         console.error(err);
